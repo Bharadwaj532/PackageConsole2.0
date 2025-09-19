@@ -1,0 +1,63 @@
+﻿<Page x:Class="PackageConsole.CopyPackage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        mc:Ignorable="d" 
+        d:DesignHeight="450" d:DesignWidth="800"
+      Title="Copy Package Console">
+
+    <Grid Background="#FF0B084E" VerticalAlignment="Top">
+        <!-- Main Layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Header -->
+            <RowDefinition Height="*" />   <!-- Content -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Text="Copy Package Console"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   Foreground="White"
+                   Margin="0,0,0,10" />
+
+        <!-- Sections -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+
+                <!-- Section 1: Local Path -->
+                <GroupBox Header="Local Path" Foreground="White" Margin="0,0,0,10">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Source Application Path: (Browse INI file)" FontWeight="Normal" Foreground="White"/>
+                        <TextBox x:Name="SourcePathTextBox" Width="400" Margin="0,5" />
+                        <Button Content="Browse" Width="100" Click="BrowseSourcePath_Click" Background="#ff5733" />
+                        <TextBlock x:Name="ProductInfoTextBlock" Text="" Margin="0,10,0,0" Foreground="White"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Section 2: Source Location -->
+
+                <!-- Section 3: Package Archive -->
+                <GroupBox Header="Package Archive" Foreground="White" Margin="0,0,0,10">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Archive Folder Location:" x:Name="ArchiveFolderLocationLabel" Margin="0,0,0,5" Foreground="White"/>
+                        <TextBox x:Name="ArchiveFolderTextBox" Width="400" Margin="0,0,0,5"/>
+                        <Button Content="Create Archive" Width="150" Click="CreateArchive_Click" Background="#ff5733"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- Section 4: Completed Packages -->
+                <GroupBox Header="Completed Packages" Foreground="White" Margin="0,0,0,10" Height="111">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Completed Package Location:" x:Name="CompletedPackageLocationLabel" Margin="0,0,0,5" Foreground="White"/>
+                        <TextBox x:Name="CompletedPackageTextBox" Width="400" Margin="0,0,0,5"/>
+                        <Button Content="Finalize Package" Width="150" Click="FinalizePackage_Click" Background="#ff5733"/>
+                    </StackPanel>
+                </GroupBox>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

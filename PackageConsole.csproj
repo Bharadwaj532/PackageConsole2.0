@@ -1,0 +1,117 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\Optum2.ico</ApplicationIcon>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Remove="Images\add.png" />
+
+    <None Remove="Images\Optum.png" />
+    <None Remove="Images\remove.png" />
+    <None Remove="Images\save.png" />
+    <None Remove="Images\update.png" />
+    <None Remove="Optum2.ico" />
+    <None Remove="Tools\ARPScanner3.1.vbs" />
+    <None Remove="Tools\Dagent and SM Agent_Update.vbs" />
+    <None Remove="Tools\DagentandSMAgent_Update.vbs" />
+    <None Remove="Tools\Git-2.47.1-64-bit.exe" />
+    <None Remove="Tools\PckgDevMngr_1.5.4.exe" />
+    <None Remove="Tools\QCPeerReviewChecklist_v1.3.0.rqct" />
+    <None Remove="Tools\QC_Tool.EXE" />
+    <None Remove="Tools\QuickPackageCreator.EXE" />
+    <None Remove="Tools\UHG Package Info.appref-ms" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="Optum2.ico" />
+    <Content Include="Tools\ARPScanner3.1.vbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\DagentandSMAgent_Update.vbs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\PckgDevMngr_1.5.4.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\QCPeerReviewChecklist_v1.3.0.rqct">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\QC_Tool.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\QuickPackageCreator.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Tools\UHG Package Info.appref-ms">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.70" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3296.44" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="6.0.4" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="6.0.4" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.5" />
+    <PackageReference Include="TaskScheduler" Version="2.12.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Optum.png" />
+    <Resource Include="Images\Optum2.ico" />
+    <Resource Include="Images\remove.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\update.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DocsGenerator\**\*.cs" />
+    <None Remove="DocsGenerator\**\*" />
+    <EmbeddedResource Remove="DocsGenerator\**\*" />
+    <Page Remove="DocsGenerator\**\*" />
+    <Resource Remove="DocsGenerator\**\*" />
+    <ApplicationDefinition Remove="DocsGenerator\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Help\*.PNG" />
+  </ItemGroup>
+
+</Project>
+

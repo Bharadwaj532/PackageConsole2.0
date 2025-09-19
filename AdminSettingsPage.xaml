@@ -1,0 +1,125 @@
+<Page x:Class="PackageConsole.AdminSettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="Admin Settings">
+    <Grid Background="#FF0B084E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Admin Settings"
+                   Margin="20" FontSize="24" FontWeight="Bold" Foreground="White"/>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="20" Orientation="Vertical">
+                <!-- Info -->
+                <TextBlock Text="Edit application paths and roles. Changes are saved to appsettings.json and take effect immediately."
+                           Foreground="LightGray" Margin="0,0,0,10"/>
+
+                <!-- Paths -->
+                <UniformGrid Columns="2" Rows="0" Margin="0,10,0,0">
+                    <TextBlock Text="ToolkitPath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="ToolkitPathText" Margin="0,2"/>
+
+                    <TextBlock Text="FeedbackPath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="FeedbackPathText" Margin="0,2"/>
+
+                    <TextBlock Text="ArchivePath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="ArchivePathText" Margin="0,2"/>
+
+                    <TextBlock Text="BasePath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="BasePathText" Margin="0,2"/>
+
+                    <TextBlock Text="CentralBasePath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="CentralBasePathText" Margin="0,2"/>
+
+                    <TextBlock Text="CompletedPackagesPath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="CompletedPackagesPathText" Margin="0,2"/>
+
+                    <TextBlock Text="BasePackagePath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="BasePackagePathText" Margin="0,2"/>
+
+                    <TextBlock Text="ScannerReportPath" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="ScannerReportPathText" Margin="0,2"/>
+
+                    <TextBlock Text="UpdatesFilePath (Marquee)" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="UpdatesFilePathText" Margin="0,2"/>
+
+                    <TextBlock Text="AppTestingRoot" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="AppTestingRootText" Margin="0,2"/>
+
+                    <TextBlock Text="LocalFeedbackDbFolder" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="LocalFeedbackDbFolderText" Margin="0,2"/>
+
+                    <TextBlock Text="CentralFeedbackDbFolder" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="CentralFeedbackDbFolderText" Margin="0,2"/>
+
+                    <TextBlock Text="AdminUsers (comma-separated)" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="AdminUsersText" Margin="0,2"/>
+
+                    <TextBlock Text="DevUsers (comma-separated)" Foreground="White" Margin="0,5"/>
+                    <TextBox x:Name="DevUsersText" Margin="0,2"/>
+                </UniformGrid>
+
+                    <!-- DB Info (resolved) -->
+                    <GroupBox Header="Database Files (resolved)" Margin="0,20,0,0">
+                        <StackPanel Margin="10" Orientation="Vertical">
+                            <UniformGrid Columns="2" Rows="0">
+                                <TextBlock Text="Local Package DB" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtLocalPkgDb" IsReadOnly="True" Margin="0,2"/>
+
+                                <TextBlock Text="Central Package DB (your file)" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtCentralPkgDb" IsReadOnly="True" Margin="0,2"/>
+
+                                <TextBlock Text="Master Package DB" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtMasterPkgDb" IsReadOnly="True" Margin="0,2"/>
+
+                                <TextBlock Text="Local Feedback DB" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtLocalFbkDb" IsReadOnly="True" Margin="0,2"/>
+
+                                <TextBlock Text="Central Feedback DB (your file)" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtCentralFbkDb" IsReadOnly="True" Margin="0,2"/>
+
+                                <TextBlock Text="Central Metadata Folder" Foreground="White" Margin="0,5"/>
+                                <TextBox x:Name="TxtCentralFolder" IsReadOnly="True" Margin="0,2"/>
+                            </UniformGrid>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button Content="Open Central Metadata Folder" Margin="0,0,10,0" Click="OpenCentralFolder_Click"/>
+                                <Button Content="Generate Sample Central Package DBs" Margin="0,0,10,0" Click="GenerateSample_Click"/>
+                                <Button Content="Create My Central Package DB (mirror local)" Click="CreateMyCentral_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <!-- Tooltip Variables Management -->
+                    <GroupBox Header="Tooltip Variables" Margin="0,20,0,0">
+                        <StackPanel Margin="10" Orientation="Vertical">
+                            <TextBlock Text="View and edit variable/tooltips shown in UI. Saved to tooltips.json under BasePath/Metadata." Foreground="LightGray" Margin="0,0,0,8"/>
+                            <DataGrid x:Name="TooltipGrid" AutoGenerateColumns="False" HeadersVisibility="Column" CanUserAddRows="True" CanUserDeleteRows="True" Margin="0,0,0,8" Height="220">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Token" Binding="{Binding Key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
+                                    <DataGridTextColumn Header="Value" Binding="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Reload" Margin="0,0,10,0" Click="ReloadTooltips_Click"/>
+                                <Button Content="Save" Click="SaveTooltips_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="20">
+            <Button Content="Save" Width="120" Margin="4" Click="Save_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
+

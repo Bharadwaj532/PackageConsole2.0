@@ -1,0 +1,88 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:helpers="clr-namespace:PackageConsole.Helpers">
+  <!-- Converters -->
+  <helpers:RouteSelectedBrushConverter x:Key="RouteSelectedBrushConverter"/>
+
+  <!-- Brushes / Colors -->
+  <SolidColorBrush x:Key="AppBackgroundColor" Color="#FF0B084E"/>
+  <SolidColorBrush x:Key="SidebarBackground" Color="#FF0B084E"/>
+  <SolidColorBrush x:Key="SidebarButtonBackground" Color="#FF5733"/>
+  <SolidColorBrush x:Key="SidebarButtonHoverBackground" Color="#FF704D"/>
+  <SolidColorBrush x:Key="SidebarButtonPressedBackground" Color="#FF8566"/>
+  <SolidColorBrush x:Key="SidebarButtonSelectedBackground" Color="#2196F3"/>
+
+  <!-- Sidebar Button Style (explicitly applied) -->
+  <Style x:Key="SidebarButtonStyle" TargetType="Button">
+    <Setter Property="Foreground" Value="White"/>
+    <Setter Property="Height" Value="50"/>
+    <Setter Property="Margin" Value="5,0"/>
+    <Setter Property="FontSize" Value="14"/>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="Background">
+      <Setter.Value>
+        <MultiBinding Converter="{StaticResource RouteSelectedBrushConverter}">
+          <Binding RelativeSource="{RelativeSource AncestorType=Window}" Path="DataContext.CurrentRoute"/>
+          <Binding Path="Tag" RelativeSource="{RelativeSource Self}"/>
+        </MultiBinding>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="BorderBrush" Value="Transparent"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border Background="{TemplateBinding Background}" CornerRadius="5">
+            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,12,0"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{StaticResource SidebarButtonHoverBackground}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{StaticResource SidebarButtonPressedBackground}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <!-- Header Logout Button Style -->
+  <SolidColorBrush x:Key="HeaderButtonForeground" Color="White"/>
+  <SolidColorBrush x:Key="HeaderButtonBackground" Color="#00000000"/>
+  <SolidColorBrush x:Key="HeaderButtonHoverBackground" Color="#332196F3"/>
+  <SolidColorBrush x:Key="HeaderButtonPressedBackground" Color="#4D2196F3"/>
+
+  <Style x:Key="HeaderButtonStyle" TargetType="Button">
+    <Setter Property="Foreground" Value="{StaticResource HeaderButtonForeground}"/>
+    <Setter Property="Background" Value="{StaticResource HeaderButtonBackground}"/>
+    <Setter Property="Padding" Value="10,6"/>
+    <Setter Property="BorderBrush" Value="{StaticResource SidebarButtonSelectedBackground}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="4">
+            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8,0"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{StaticResource HeaderButtonHoverBackground}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{StaticResource HeaderButtonPressedBackground}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>
+

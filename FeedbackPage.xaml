@@ -1,0 +1,81 @@
+﻿<Page x:Class="PackageConsole.FeedbackPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PackageConsole"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="800"
+      Title="Feedback"
+      Background="#0B084E">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto" MinHeight="299"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Package Console Feedback Form" Foreground="White" FontSize="24" FontFamily="bold" HorizontalAlignment="Center" Margin="0,0,0,286"/>
+        <DataGrid x:Name="feedbackGrid"
+          AutoGenerateColumns="False"
+          HeadersVisibility="Column"
+          Margin="10,56,10,10"
+          RowHeaderWidth="0"
+          GridLinesVisibility="All"
+          ColumnHeaderHeight="35">
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FF5733"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="8,5"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderBrush" Value="White"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="User" Binding="{Binding User}" Width="Auto"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="Auto"/>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="150"/>
+                <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                <DataGridTextColumn Header="Screenshot" Binding="{Binding Screenshot}" Width="50"/>
+                <DataGridTextColumn Header="Response" Binding="{Binding Response}" Width="2*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <StackPanel Grid.Row="1" Margin="0,10,0,0">
+            <TextBlock Text="Would you like to submit feedback?" Foreground="White" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <RadioButton GroupName="FeedbackChoice" Content="Yes" Checked="SubmitYes_Checked" Foreground="White"/>
+                <RadioButton GroupName="FeedbackChoice" Content="No" IsChecked="True" Checked="SubmitNo_Checked" Foreground="White" Margin="20,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel x:Name="submissionPanel" Visibility="Hidden" Margin="0,10,0,0" >
+
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="cmbFeedbackType" Width="200">
+                        <ComboBoxItem Content="Bug / Issue" />
+                        <ComboBoxItem Content="Feature Request" />
+                        <ComboBoxItem Content="Suggestion" />
+                        <ComboBoxItem Content="Other" />
+                    </ComboBox>
+                    <Button Content="Submit Feedback" Width="150" Click="BtnSubmitFeedback_Click" HorizontalAlignment="Right" Margin="400,0,0,0"/>
+
+                </StackPanel>
+
+                <TextBox x:Name="txtFeedbackMessage" Height="80" AcceptsReturn="True" TextWrapping="Wrap" Margin="0,10"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Attach Screenshot (Optional)" Click="BtnAttachScreenshot_Click" Width="200"/>
+                    <TextBlock x:Name="lblScreenshotPath" Foreground="White" FontStyle="Italic" Width="340" Margin="50,0,0,0"/>
+                </StackPanel>
+                <Button x:Name="btnUpdateResponse" Content="Update Response" Width="111" HorizontalAlignment="Right" />
+                <TextBlock x:Name="txtResponse" Foreground="Green" Margin="0,5" FontSize="20" FontWeight="Bold"/>
+            </StackPanel>
+        </StackPanel>
+        <CheckBox x:Name="chkShowAllFeedback" Content="Admin Page" HorizontalAlignment="Left" Margin="66,9,0,0" VerticalAlignment="Top" Foreground="#FFF9F1F1"/>
+    </Grid>
+</Page>

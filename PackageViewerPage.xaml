@@ -1,0 +1,144 @@
+﻿<Page x:Class="PackageConsole.Pages.PackageViewerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PackageConsole.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="850">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#ff5733"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#FF3E4B12" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="8,0,12,0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#FF0B084E" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Filter Panel -->
+        <WrapPanel x:Name="AdminTogglePanel" Margin="12,9,0,11" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <CheckBox x:Name="AdminModeToggle"
+              Content="Admin Mode"
+              FontWeight="Bold"
+              Foreground="DarkRed"
+              Margin="5"
+              Checked="AdminModeToggle_Checked"
+              Unchecked="AdminModeToggle_Unchecked" />
+            <TextBlock x:Name="txtAdminStatus"
+                   Text="Viewing: Personal Packages"
+                   FontStyle="Italic"
+                   Foreground="Gray"
+                   />
+            <Button x:Name="RefreshMasterBtn" Content="⟳ Refresh Master" Click="RefreshMaster_Click" Margin="10,0,0,0"/>
+            <TextBlock x:Name="txtMasterInfo" Foreground="LightGray" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </WrapPanel>
+
+        <Grid Margin="10" Grid.Row="1" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="AppKeyID:" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <TextBox x:Name="txtAppKeyIDFilter" Grid.Column="1" Width="170"/>
+
+            <TextBlock Text="AppName:" Grid.Column="3" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <TextBox x:Name="txtAppNameFilter" Grid.Column="4" Width="200"/>
+
+            <TextBlock Text="SubmittedBy:" Grid.Column="6" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="cbSubmittedBy" Grid.Column="7" Width="180" SelectionChanged="SubmittedBy_SelectionChanged"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Right">
+                <Button Content="🔍 Apply Filter" Click="ApplyFilter_Click"/>
+                <Button Content="🧹 Clear Filter" Click="ClearFilter_Click"/>
+                <Button Content="📥 Export CSV" Click="ExportCsv_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Results Count -->
+        <TextBlock x:Name="txtResultCount" Margin="10,0,0,5" Grid.Row="2" FontWeight="Bold" />
+
+        <!-- Data Grid -->
+        <DataGrid x:Name="packageGrid"
+                  Grid.Row="3"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="True"
+                  Margin="10"
+                  GridLinesVisibility="None"
+                  RowBackground="#292941"
+                  AlternatingRowBackground="#25253A"
+                  Foreground="White"
+                  Background="#FF0B084E" ColumnHeaderHeight="{Binding Background, ElementName=packageGrid}">
+            <DataGrid.RowHeaderStyle>
+                <Style/>
+            </DataGrid.RowHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="AppKeyID">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AppKeyID}" Foreground="LightBlue" Cursor="Hand" TextDecorations="Underline"
+                 MouseLeftButtonUp="AppKeyID_Click" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="AppName" Binding="{Binding AppName}" Width="*" />
+                <DataGridTextColumn Header="Version" Binding="{Binding AppVersion}" Width="*" />
+                <DataGridTextColumn Header="Type" Binding="{Binding InstallerType}" Width="*" />
+                <DataGridTextColumn Header="SubmittedBy" Binding="{Binding SubmittedBy}" Width="*" />
+                <DataGridTextColumn Header="SubmittedOn" Binding="{Binding SubmittedOn}" Width="*" />
+                <DataGridTemplateColumn Header="INI" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="📄 View" Click="ViewIni_Click" />
+                                <Button Content="⬇" Click="DownloadIni_Click" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

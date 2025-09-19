@@ -1,0 +1,108 @@
+﻿<Window x:Class="PackageConsole.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PackageConsole"
+        mc:Ignorable="d"
+        Title="HelpWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,15,0,5" />
+        </Style>
+        <Style x:Key="BodyText" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+    </Window.Resources>
+    <ScrollViewer Margin="10">
+        <StackPanel>
+            <TextBlock Text="📦 Package Console - Help" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+
+            <!-- Overview -->
+            <TextBlock Style="{StaticResource BodyText}">Package Console is a WPF tool for end-to-end application packaging: creating folder structures, generating and editing INI, testing deployments, feedback tracking, and a shared dashboard backed by per-user SQLite files and a Master database.</TextBlock>
+
+            <!-- Add Package -->
+            <TextBlock Text="➕ Add Package" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Creates standard folder structure and copies toolkit templates.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Captures metadata: AppKeyID, AppName, Version, Vendor, InstallerType, etc.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Generates base INI with required sections and variables.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Saves metadata to your local SQLite; mirrors to Central on save (Admin can reconfigure paths).</TextBlock>
+
+            <Image Source="Images/Help/AddPackage.PNG" MaxHeight="220" Stretch="Uniform" Margin="0,8,0,0" />
+
+            <!-- INI Console -->
+            <TextBlock Text="🧩 INI Console Page" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Purpose: this is the main workspace to create, review and fine‑tune your package INI.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Layout: Left = Sections, Middle = Keys, Right = Value editor and actions.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Browse &amp; edit: Click a key to edit its value; autocomplete and tooltips assist with known variables.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Add/Delete: Use + to add sections/keys. Turn ON Delete Key Mode to remove keys with confirmation.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Variables &amp; tooltips: Centralized in Admin Settings (tooltips.json). Hover a key to see guidance; enable "Show resolved variables" to preview values.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Undo/Redo: Toolbar buttons or Ctrl+Z / Ctrl+Y. Works per key and across edits in the session.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Update/Save: Only changed keys are written back. Validation highlights missing/invalid values before save.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Configuration (⚙️): Toggle Show resolved values, Show tooltips, Expand multi‑line editors, and Enable Delete Key Mode.</TextBlock>
+            <Image Source="Images/Help/IniConsolepage.PNG" MaxHeight="280" Stretch="Uniform" Margin="0,8,0,0" />
+
+            <TextBlock Style="{StaticResource BodyText}">Delete Key Mode: When ON, clicking a key asks for confirmation and removes it safely. Protected keys are skipped. Re‑add with +.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Permissions (foldperm / regperm / fileperm): Use + to add a row (Identity, Rights, Inheritance); use – to remove. Rights list supports multiple flags.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">Tips: Use Ctrl+F to find a section/key quickly; double‑click a section to collapse/expand; right‑click value editor for common tokens.</TextBlock>
+
+
+            <!-- Edit Existing INI -->
+            <TextBlock Text="✏️ Edit Existing INI" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Open an existing package (Previous Apps) and continue editing its INI.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Postconfig page supports variable substitution and quick tokens.</TextBlock>
+
+            <Image Source="Images/Help/EditExisitingINI.PNG" MaxHeight="240" Stretch="Uniform" Margin="0,8,0,0" />
+
+            <!-- Copy Toolkit -->
+            <TextBlock Text="📁 Copy Toolkit" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Clone an existing packaging structure to a new app/version.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Preserves directory layout and scripts; update INI afterwards.</TextBlock>
+
+
+
+            <!-- Package Dashboard -->
+            <TextBlock Text="📊 Package Dashboard" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Grid view of packages with filters for AppKeyID, AppName, SubmittedBy, and date.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Submitted By dropdown: choose "All (Master)" to view the merged Master database, or pick a specific user to load their DB directly from Central.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Buttons: Apply Filter, Clear Filter, Export CSV.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Admin Mode → Refresh Master: builds Master locally, then copies to Central. The app reads Central DBs via local temp copies to avoid UNC/WAL issues.</TextBlock>
+            <Image Source="Images/Help/PackageDashboard.PNG" MaxHeight="280" Stretch="Uniform" Margin="0,8,0,0" />
+
+
+            <!-- Feedback -->
+            <TextBlock Text="💬 Feedback" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Log issues, ideas, or notes. Stored alongside project data for follow-up.</TextBlock>
+
+            <!-- Testing -->
+            <TextBlock Text="🧪 Testing" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Supports snapshot-style validation (pre/post) and running common deployment commands.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Generates quick reports to verify expected changes and installation behaviors.</TextBlock>
+
+            <!-- Admin Settings -->
+            <TextBlock Text="🛠️ Admin Settings" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- Configure Central paths (base, Metadata folder), Local paths, and mirroring behavior.</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- Manage Tooltip Variables via a grid; Save to tooltips.json and Reload to apply.</TextBlock>
+            <Image Source="Images/Help/Adminsettings.PNG" MaxHeight="240" Stretch="Uniform" Margin="0,8,0,0" />
+
+            <TextBlock Style="{StaticResource BodyText}">- Create My Central Package DB (mirror local): performs a direct file copy to Central; uses snapshot fallback if needed.</TextBlock>
+
+            <!-- Tips -->
+            <TextBlock Text="💡 Tips" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">- If a Central DB appears but shows no rows, click Refresh Master (Admin) and ensure Submitted By is set to "All (Master)".</TextBlock>
+            <TextBlock Style="{StaticResource BodyText}">- When selecting a specific user DB, filtering by SubmittedBy is implicit; use other filters as needed.</TextBlock>
+
+            <!-- Support -->
+            <TextBlock Text="📎 Support" Style="{StaticResource SectionHeader}" />
+            <TextBlock Style="{StaticResource BodyText}">Contact the internal Packaging Team for documentation, bug reports, or feature requests. This tool is maintained by the Optum Application Engineering Group.</TextBlock>
+
+            <!-- Credits -->
+            <TextBlock Text="👨‍💻 Developed By" Style="{StaticResource SectionHeader}" />
+            <TextBlock Text="Bharadwaj, Kothalanka" Style="{StaticResource BodyText}" />
+            <TextBlock Text="Email: kothalanka_bharadwaj@optum.com" Style="{StaticResource BodyText}" />
+            <TextBlock Text="GPS Packaging Team" Style="{StaticResource BodyText}" />
+        </StackPanel>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,119 @@
+﻿<Window x:Class="PackageConsole.Postconfig"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d"
+      d:DesignHeight="250" d:DesignWidth="650"
+      Title="PostConfig"
+      SizeToContent="WidthAndHeight"
+      ResizeMode="CanMinimize"
+      Background="#FF0B084E">
+
+    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>            <!-- Row 0: Section -->
+            <RowDefinition Height="Auto"/>            <!-- Row 1: Path Type & Value Type -->
+            <RowDefinition Height="Auto"/>            <!-- Row 2: Dynamic Inputs -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>            <!-- Row 3: Buttons -->
+            <RowDefinition Height="*"/>            <!-- Row 4: Content Display -->
+        </Grid.RowDefinitions>
+       
+        <!-- Section ComboBox (Properly Positioned) -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,5,0,5">
+            <Label Content="Section:" Foreground="White" VerticalAlignment="Center" Width="100"/>
+            <ComboBox x:Name="cmbSection" Width="200" SelectionChanged="cmbSection_SelectionChanged" Height="20"/>
+        </StackPanel>
+
+        <!-- Extra Fields (Properly Aligned, Initially Hidden) -->
+        <StackPanel x:Name="dynamicFieldsPanel" Grid.Row="1" Orientation="Horizontal" Visibility="Visible" Margin="0,5,0,5">
+            <Label x:Name="lblPathType" Content="Path Type:" Foreground="White" VerticalAlignment="Center" Width="100"/>
+            <ComboBox x:Name="cmbPathType" Width="200" SelectionChanged="cmbPathType_SelectionChanged" Height="20">
+                <ComboBoxItem Content="PREUPGRADE"/>
+                <ComboBoxItem Content="PREINSTALL"/>
+                <ComboBoxItem Content="POSTINSTALL"/>
+                <ComboBoxItem Content="PREUNINSTALL"/>
+                <ComboBoxItem Content="POSTUNINSTALL"/>
+            </ComboBox>
+        
+        <!-- Key & Value Type Row -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5,0,5">
+            <Label x:Name="lblKey" Content="Key:" Foreground="White" VerticalAlignment="Center" Width="100"/>
+            <TextBox x:Name="txtKey" Width="150" IsReadOnly="True" Height="16"/>
+
+                <Label x:Name="lblValueType" Content="Value Type:" Foreground="White" VerticalAlignment="Center" Width="100" Margin="20,0,0,0"/>
+            <ComboBox x:Name="cmbValueType" Width="150" SelectionChanged="cmbValueType_SelectionChanged" Height="20">
+                <ComboBoxItem Content="FILE COPY"/>
+                <ComboBoxItem Content="Delete File"/>
+                <ComboBoxItem Content="Directory Copy"/>
+                <ComboBoxItem Content="RegWrite Value"/>
+                <ComboBoxItem Content="RegDelete Value"/>
+                <ComboBoxItem Content="RegDelete Key"/>
+            </ComboBox>
+        </StackPanel>      
+        </StackPanel>
+        <!-- Add Section Panel (Initially Hidden) -->
+        <StackPanel x:Name="addSectionPanel" Grid.Row="2" Orientation="Horizontal" Visibility="Collapsed" Margin="0,10,0,10">
+            <Label x:Name="lblNewSection" Content="New Section:" Foreground="White" VerticalAlignment="Center" Width="100"/>
+            <TextBox x:Name="txtNewSection" Width="150" IsReadOnly="True" />
+            <Button x:Name="btnAddSection" Content="Add Section" Click="btnAddSection_Click" Width="120" Margin="10,0,0,0"/>
+        </StackPanel>
+        <!-- TAG Section Panel (Initially Hidden) -->
+        <StackPanel x:Name="tagSectionPanel" Grid.Row="3" Visibility="Collapsed" Margin="0,5,0,5">
+            <!-- Tag Key Row -->
+            <Grid Margin="0,5,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Tag Key:" Foreground="White" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="txtTagKey" Width="150" Height="20" IsReadOnly="True"/>
+            </Grid>
+
+            <!-- APPNAME / APPGUID / Enabled Row -->
+            <Grid Margin="0,5,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="APPNAME:" Foreground="White" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="txtAppName" Height="20"/>
+
+                <Label Grid.Column="3" Content="APPGUID:" Foreground="White" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="4" x:Name="txtAppGuid" Height="20"/>
+
+                <Label Grid.Column="6" Content="Enabled:" Foreground="White" VerticalAlignment="Center"/>
+                <ComboBox Grid.Column="7" x:Name="cmbTagEnabled" Height="20">
+                    <ComboBoxItem Content="True"/>
+                    <ComboBoxItem Content="False"/>
+                </ComboBox>
+            </Grid>
+        </StackPanel>
+
+        <!-- Dynamic Input Fields -->
+        <StackPanel Grid.Row="3" x:Name="stackDynamicInputs" Orientation="Vertical" Margin="0,5,0,5"/>
+        <!-- Buttons Row -->
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" Margin="0,5,0,5">
+            <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" Width="77"/>
+            <Button Content="Clear" Width="100" Margin="10,0,0,0" Click="btnClear_Click"/>
+            <Button Content="Load to INI" Width="150" Margin="10,0,0,0" Click="btnLoadToINI_Click"/>
+            <!--  <Button x:Name="btnSaveInFile" Content="Save to File" Width="100" Margin="10,0,0,0" Click="btnSaveInFile_Click"/> -->
+        </StackPanel>
+
+        <!-- Content Display Area -->
+        <Border Grid.Row="5" BorderThickness="1" BorderBrush="White" Margin="0,5,0,0">
+            <TextBox x:Name="txtPostconfigValues" FontSize="12" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" AcceptsReturn="True" IsReadOnly="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden" Height="80"/>
+        </Border>
+    </Grid>
+</Window>
